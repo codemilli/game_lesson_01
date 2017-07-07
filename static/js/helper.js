@@ -1,10 +1,15 @@
-function createVector() {
-
+function Blob(x, y, r) {
+    this.pos = createVector(x, y);
+    this.r = r;
+    this.x = x;
+    this.y = y;
 }
 
-function Blob() {
-    this.pos = createVector(width / 2, height / 2);
-    this.r = 64;
+Blob.prototype.update = function() {
+    var vel = createVector(mouseX, mouseY);
+    vel.sub(this.pos);
+    vel.setMag(3);
+    this.pos.add(vel);
 }
 
 Blob.prototype.show = function() {
