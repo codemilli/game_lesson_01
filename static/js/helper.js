@@ -6,13 +6,12 @@ function Blob(x, y, r) {
 }
 
 Blob.prototype.update = function() {
-    var vel = createVector(mouseX, mouseY);
-    vel.sub(this.pos);
+    var vel = createVector(mouseX - width / 2, mouseY - height / 2);
     vel.setMag(3);
     this.pos.add(vel);
-}
+};
 
 Blob.prototype.show = function() {
     fill(255);
     ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
-}
+};

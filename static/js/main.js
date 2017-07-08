@@ -12,8 +12,9 @@ function setup() {
 
 function draw() {
     background(0);
-    blob.show();
+    translate(width / 2 - blob.pos.x, height / 2 - blob.pos.y);
     blob.update();
+    blob.show();
     blobs.forEach(function(b) {
         b.show();
     });
