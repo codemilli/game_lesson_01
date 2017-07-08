@@ -6,7 +6,7 @@ function setup() {
     createCanvas(600, 600);
     blob = new Blob(width / 2, height / 2, 64);
 
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < 1000; i++) {
       var x = random(-width, width * 2);
       var y = random(-height, height * 2);
       blobs[i] = new Blob(x, y, 16);

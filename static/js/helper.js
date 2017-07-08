@@ -3,12 +3,15 @@ function Blob(x, y, r) {
     this.r = r;
     this.x = x;
     this.y = y;
+    this.vel = createVector(0, 0);
 }
 
 Blob.prototype.update = function() {
-    var vel = createVector(mouseX - width / 2, mouseY - height / 2);
-    vel.setMag(3);
-    this.pos.add(vel);
+    var newVel = createVector(mouseX - width / 2, mouseY - height / 2);
+    newVel.setMag(3);
+
+    this.vel.lerp(newVel, 0.2);
+    this.pos.add(this.vel);
 };
 
 Blob.prototype.eats = function (other) {
