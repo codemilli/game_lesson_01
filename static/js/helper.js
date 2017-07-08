@@ -11,6 +11,17 @@ Blob.prototype.update = function() {
     this.pos.add(vel);
 };
 
+Blob.prototype.eats = function (other) {
+    var d = p5.Vector.dist(this.pos, other.pos);
+
+    if (d < this.r + other.r) {
+        this.r += other.r / 10;
+        return true;
+    }
+
+    return false;
+};
+
 Blob.prototype.show = function() {
     fill(255);
     ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
