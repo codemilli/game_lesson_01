@@ -2,6 +2,9 @@ var blob;
 var blobs = [];
 var zoom = 1;
 
+/**
+ * Setup for drawing
+ */
 function setup() {
     createCanvas(600, 600);
     blob = new Blob(width / 2, height / 2, 64);
@@ -13,6 +16,9 @@ function setup() {
     }
 }
 
+/**
+ * Drawing function called 60 times per 1sec.
+ */
 function draw() {
     background(0);
 
