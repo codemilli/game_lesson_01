@@ -8,7 +8,7 @@ function Blob(x, y, r) {
 
 Blob.prototype.update = function() {
     var newVel = createVector(mouseX - width / 2, mouseY - height / 2);
-    newVel.setMag(3);
+    newVel.setMag(5);
 
     this.vel.lerp(newVel, 0.2);
     this.pos.add(this.vel);
