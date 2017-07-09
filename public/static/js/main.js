@@ -20,6 +20,10 @@ function setup() {
     };
 
     socket.emit('start', data);
+
+    socket.on('heartbeat', function (data) {
+        console.log('heartbeat', data);
+    });
 }
 
 /**

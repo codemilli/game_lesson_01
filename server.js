@@ -26,6 +26,12 @@ app.use(express.static('public'));
 
 var io = require('socket.io')(server);
 
+setInterval(heartbeat, 1000);
+
+function heartbeat() {
+  io.sockets.emit('heartbeat', blobs);
+}
+
 io.sockets.on('connection', function (socket) {
   console.log('we have a new client: ' + socket.id);
 
