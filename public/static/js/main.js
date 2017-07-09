@@ -50,13 +50,6 @@ function draw() {
             textSize(9);
             text(b.id, b.x, b.y + b.r + 2);
         }
-
-        // if (blob.eats(b)) {
-        //     return false;
-        // } else {
-        //     b.show();
-        //     return true;
-        // }
     });
 
     blob.update();
