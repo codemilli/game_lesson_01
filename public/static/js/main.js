@@ -9,8 +9,10 @@ var zoom = 1;
 function setup() {
     createCanvas(600, 600);
     background(0);
+    fill(255, 0, 0);
+    rect(0, 0, 600, 600);
 
-    socket = io.connect('http://localhost:3000');
+    socket = io.connect(location.origin);
 
     blob = new Blob(0, 0, 64);
     var data = {

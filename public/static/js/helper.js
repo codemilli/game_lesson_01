@@ -28,6 +28,12 @@ Blob.prototype.eats = function (other) {
 Blob.prototype.show = function() {
     fill(255);
     ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
+    ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
+
+    fill(255);
+    textAlign(CENTER);
+    textSize(12);
+    text(('x: ' + parseInt(this.pos.x) + ' y: ' + parseInt(this.pos.y)), this.pos.x, this.pos.y + this.r + 12);
 };
 
 Blob.prototype.constrain = function() {
