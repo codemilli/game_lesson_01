@@ -12,21 +12,14 @@ function setup() {
 
     socket = io.connect('http://localhost:3000');
 
-    socket.on('mouse', function (data) {
-        console.log('Got: ' + data.x + ' ' + data.y);
-        fill(0, 0, 255);
-        noStroke();
-        ellipse(data.x, data.y, 20, 20);
-    });
+    blob = new Blob(0, 0, 64);
+    var data = {
+        x: blob.pos.x,
+        y: blob.pos.y,
+        r: blob.r
+    };
 
-
-    blob = new Blob(width / 2, height / 2, 64);
-
-    for (var i = 0; i < 100; i++) {
-      var x = random(-width, width * 2);
-      var y = random(-height, height * 2);
-      blobs[i] = new Blob(x, y, 16);
-    }
+    socket.emit('start', data);
 }
 
 /**
@@ -52,4 +45,11 @@ function draw() {
 
     blob.update();
     blob.show();
+    blob.constrain();
+
+    socket.emit('update', {
+        x: blob.pos.x,
+        y: blob.pos.y,
+        r: blob.r
+    });
 }

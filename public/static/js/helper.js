@@ -29,3 +29,8 @@ Blob.prototype.show = function() {
     fill(255);
     ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
 };
+
+Blob.prototype.constrain = function() {
+  this.pos.x = constrain(this.pos.x, -width, width);
+  this.pos.y = constrain(this.pos.y, -height, height);
+};
