@@ -22,7 +22,8 @@ function setup() {
     socket.emit('start', data);
 
     socket.on('heartbeat', function (data) {
-        console.log('heartbeat', data);
+        console.log('data => ', data);
+        blobs = data;
     });
 }
 
@@ -38,13 +39,24 @@ function draw() {
     scale(zoom);
     translate(-blob.pos.x, -blob.pos.y);
 
-    blobs = blobs.filter(function (b, idx) {
-        if (blob.eats(b)) {
-            return false;
-        } else {
-            b.show();
-            return true;
+    blobs.filter(function (b, idx) {
+
+        if (b.id !== socket.id) {
+            fill(0, 0, 255);
+            ellipse(b.x, b.y, b.r * 2, b.r * 2);
+
+            fill(255);
+            textAlign(CENTER);
+            textSize(9);
+            text(b.id, b.x, b.y + b.r + 2);
         }
+
+        // if (blob.eats(b)) {
+        //     return false;
+        // } else {
+        //     b.show();
+        //     return true;
+        // }
     });
 
     blob.update();
