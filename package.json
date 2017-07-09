@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.15.3",
     "lite-server": "^2.3.0",
-    "p5": "^0.5.11"
+    "p5": "^0.5.11",
+    "socket.io": "^2.0.3"
   }
 }
