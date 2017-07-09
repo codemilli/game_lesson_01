@@ -43,8 +43,6 @@ io.sockets.on('connection', function (socket) {
   });
   
   socket.on('update', function (data) {
-    console.log('on update ', socket.id + ' ' + data.x + ' ' + data.y + ' ' + data.r);
-
     var blob = new Blob(socket.id, data.x, data.y, data.r);
     
     blobs.forEach(function (b, idx) {
@@ -53,4 +51,10 @@ io.sockets.on('connection', function (socket) {
       }
     });
   });
+
+  socket.on('disconnect', function () {
+    blobs = blobs.filter(function (b) {
+      return b.id !== socket.id;
+    });
+  })
 });
