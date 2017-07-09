@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 var io = require('socket.io')(server);
 
-setInterval(heartbeat, 33);
+setInterval(heartbeat, 16);
 
 function heartbeat() {
   io.sockets.emit('heartbeat', blobs);
