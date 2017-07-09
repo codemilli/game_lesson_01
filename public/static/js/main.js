@@ -22,16 +22,20 @@ function setup() {
     socket.emit('start', data);
 
     socket.on('heartbeat', function (data) {
-        console.log('data => ', data);
         blobs = data;
     });
 }
+
+var a = Date.now();
 
 /**
  * Drawing function called 60 times per 1sec.
  */
 function draw() {
     background(0);
+
+    console.log('diff => ', Date.now() - a);
+    a = Date.now();
 
     var newZoom = 64 / blob.r;
     zoom = lerp(zoom, newZoom, 0.1);
