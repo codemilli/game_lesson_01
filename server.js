@@ -4,6 +4,14 @@
 
 var blobs = [];
 
+for(var i = 0; i < 200; i++) {
+  blobs[i] = {
+    x: parseInt(Math.random() * 2000) - 1000,
+    y: parseInt(Math.random() * 2000) - 1000,
+    r: 20
+  };
+}
+
 function Blob(id, x, y, r) {
   this.id = id;
   this.x = x;

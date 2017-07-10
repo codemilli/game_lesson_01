@@ -3,14 +3,15 @@ var blob;
 var blobs = [];
 var zoom = 1;
 
+var _canvasWidth = 1000;
+var _canvasHeight = 1000;
+
 /**
  * Setup for drawing
  */
 function setup() {
-    createCanvas(600, 600);
+    createCanvas(_canvasWidth, _canvasHeight);
     background(0);
-    fill(255, 0, 0);
-    rect(0, 0, 600, 600);
 
     socket = io.connect(location.origin);
 
@@ -40,16 +41,22 @@ function draw() {
     scale(zoom);
     translate(-blob.pos.x, -blob.pos.y);
 
-    blobs.filter(function (b, idx) {
+    blobs.forEach(function (b, idx) {
 
         if (b.id !== socket.id) {
-            fill(0, 0, 255);
-            ellipse(b.x, b.y, b.r * 2, b.r * 2);
 
-            fill(255);
-            textAlign(CENTER);
-            textSize(9);
-            text(b.id, b.x, b.y + b.r + 2);
+            if (b.id) {
+                fill(0, 0, 255);
+                ellipse(b.x, b.y, b.r * 2, b.r * 2);
+
+                fill(255);
+                textAlign(CENTER);
+                textSize(9);
+                text(b.id, b.x, b.y + b.r + 2);
+            } else {
+                fill(0, 255, 255);
+                ellipse(b.x, b.y, b.r * 2, b.r);
+            }
         }
     });
 
