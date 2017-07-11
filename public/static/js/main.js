@@ -55,7 +55,7 @@ function draw() {
                 text(b.id, b.x, b.y + b.r + 2);
             } else {
                 fill(0, 255, 255);
-                ellipse(b.x, b.y, b.r * 2, b.r);
+                ellipse(b.x, b.y, b.r * 2, b.r * 2);
             }
         }
     });
