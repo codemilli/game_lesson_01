@@ -15,10 +15,11 @@ Blob.prototype.update = function() {
 };
 
 Blob.prototype.eats = function (other) {
-    var d = p5.Vector.dist(this.pos, other.pos);
+    var d = p5.Vector.dist(this.pos, (new Blob(other.x, other.y, other.r)).pos);
 
     if (d < this.r + other.r) {
         this.r += other.r / 10;
+
         return true;
     }
 

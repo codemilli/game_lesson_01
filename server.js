@@ -8,7 +8,7 @@ for(var i = 0; i < 250; i++) {
   blobs[i] = {
     x: parseInt(Math.random() * 2000) - 1000,
     y: parseInt(Math.random() * 2000) - 1000,
-    r: 15
+    r: 4
   };
 }
 

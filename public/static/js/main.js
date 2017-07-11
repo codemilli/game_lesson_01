@@ -15,7 +15,7 @@ function setup() {
 
     socket = io.connect(location.origin);
 
-    blob = new Blob(0, 0, 64);
+    blob = new Blob(0, 0, 32);
     var data = {
         x: blob.pos.x,
         y: blob.pos.y,
@@ -35,7 +35,7 @@ function setup() {
 function draw() {
     background(0);
 
-    var newZoom = 64 / blob.r;
+    var newZoom = 32 / blob.r;
     zoom = lerp(zoom, newZoom, 0.1);
     translate(width / 2, height / 2);
     scale(zoom);
@@ -58,6 +58,12 @@ function draw() {
                 ellipse(b.x, b.y, b.r * 2, b.r * 2);
             }
         }
+    });
+
+    blobs.forEach(function (b) {
+      if (blob.eats(b)) {
+          console.log('eat');
+      }
     });
 
     blob.update();
