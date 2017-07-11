@@ -54,7 +54,7 @@ function draw() {
                 textSize(9);
                 text(b.id, b.x, b.y + b.r + 2);
             } else {
-                fill(0, 255, 255);
+                fill(255, 0, 0);
                 ellipse(b.x, b.y, b.r * 2, b.r * 2);
             }
         }
