@@ -6,6 +6,7 @@ var blobs = [];
 
 for(var i = 0; i < 250; i++) {
   blobs[i] = {
+    b_id: parseInt(Math.random() * 999999),
     x: parseInt(Math.random() * 2000) - 1000,
     y: parseInt(Math.random() * 2000) - 1000,
     r: 4
@@ -13,7 +14,7 @@ for(var i = 0; i < 250; i++) {
 }
 
 function Blob(id, x, y, r) {
-  this.id = id;
+  this.id = id; 
   this.x = x;
   this.y = y;
   this.r = r;
@@ -57,6 +58,16 @@ io.sockets.on('connection', function (socket) {
       if (socket.id === b.id) {
         blobs[idx] = blob;
       }
+    });
+  });
+
+  socket.on('eating', function(data) {
+    blobs = blobs.filter(function(b) {
+      if (b.b_id === data.b_id) {
+        socket.emit('ate', data);
+        return false;
+      }
+      return true;
     });
   });
 
