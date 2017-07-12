@@ -1,6 +1,7 @@
 var socket;
 var blob;
 var blobs = [];
+var users = [];
 var zoom = 1;
 
 var _canvasWidth = 1000;
@@ -25,6 +26,10 @@ function setup() {
     socket.emit('start', data);
 
     socket.on('heartbeat', function (data) {
+        users = data;
+    });
+
+    socket.on('blobs.changes', function(data) {
         blobs = data;
     });
 
@@ -45,26 +50,24 @@ function draw() {
     //scale(zoom);
     translate(-blob.pos.x, -blob.pos.y);
 
-    blobs.forEach(function (b, idx) {
-
+    users.forEach(function (b) {
         if (b.id !== socket.id) {
+            fill(0, 0, 255);
+            ellipse(b.x, b.y, b.r * 2, b.r * 2);
 
-            if (b.id) {
-                fill(0, 0, 255);
-                ellipse(b.x, b.y, b.r * 2, b.r * 2);
+            fill(255);
+            textAlign(CENTER);
+            textSize(9);
+            text(b.id, b.x, b.y + b.r + 2);
+        }
+    });
 
-                fill(255);
-                textAlign(CENTER);
-                textSize(9);
-                text(b.id, b.x, b.y + b.r + 2);
-            } else if (b.b_id) {
-                fill(255, 0, 0);
-                ellipse(b.x, b.y, b.r * 2, b.r * 2);
+    blobs.forEach(function (b, idx) {
+        fill(255, 0, 0);
+        ellipse(b.x, b.y, b.r * 2, b.r * 2);
 
-                if (blob.eats(b)) {
-                    socket.emit('eating', b);
-                }
-            }
+        if (blob.eats(b)) {
+            socket.emit('eating', b);
         }
     });
 
