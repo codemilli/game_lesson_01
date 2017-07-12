@@ -2,6 +2,8 @@
  * Created by hckrmoon on 7/9/17.
  */
 
+var isDev = process.env.NODE_ENV !== "production";
+
 var blobs = [];
 var users = [];
 
@@ -33,7 +35,7 @@ function listen() {
   console.log('server running at http://' + host + ':' + port);
 }
 
-app.use(express.static('public'));
+app.use(express.static(isDev ? 'public' : 'dist'));
 
 var io = require('socket.io')(server);
 

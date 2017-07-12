@@ -2,3 +2,4 @@ node_modules
 .idea
 .vscode
 pm2.json
+dist
