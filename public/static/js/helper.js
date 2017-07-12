@@ -1,3 +1,5 @@
+var eatingBlobList = {};
+
 function Blob(x, y, r) {
     this.pos = createVector(x, y);
     this.r = r;
@@ -17,13 +19,16 @@ Blob.prototype.update = function() {
 Blob.prototype.eats = function (other) {
     var d = p5.Vector.dist(this.pos, (new Blob(other.x, other.y, other.r)).pos);
 
-    if (d < this.r + other.r) {
-        this.r += other.r / 10;
-
+    if ((d < this.r + other.r) && eatingBlobList[other.b_id] !== 'eating') {
+        eatingBlobList[other.b_id] = 'eating';
         return true;
     }
 
     return false;
+};
+
+Blob.prototype.ate = function (other) {
+    this.r += other.r / 10;
 };
 
 Blob.prototype.show = function() {

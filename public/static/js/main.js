@@ -27,6 +27,11 @@ function setup() {
     socket.on('heartbeat', function (data) {
         blobs = data;
     });
+
+    socket.on('ate', function (data) {
+        console.log('ate');
+        blob.ate(data);
+    });
 }
 
 /**
@@ -35,10 +40,10 @@ function setup() {
 function draw() {
     background(0);
 
-    var newZoom = 32 / blob.r;
+    var newZoom = 32 / (32 + ((blob.r - 32) * 0.5));
     zoom = lerp(zoom, newZoom, 0.1);
     translate(width / 2, height / 2);
-    scale(zoom);
+    //scale(zoom);
     translate(-blob.pos.x, -blob.pos.y);
 
     blobs.forEach(function (b, idx) {
@@ -53,17 +58,15 @@ function draw() {
                 textAlign(CENTER);
                 textSize(9);
                 text(b.id, b.x, b.y + b.r + 2);
-            } else {
+            } else if (b.b_id) {
                 fill(255, 0, 0);
                 ellipse(b.x, b.y, b.r * 2, b.r * 2);
+
+                if (blob.eats(b)) {
+                    socket.emit('eating', b);
+                }
             }
         }
-    });
-
-    blobs.forEach(function (b) {
-      if (blob.eats(b)) {
-          console.log('eat');
-      }
     });
 
     blob.update();
