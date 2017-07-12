@@ -28,7 +28,7 @@ Blob.prototype.eats = function (other) {
 };
 
 Blob.prototype.ate = function (other) {
-    this.r += other.r / 10;
+    this.r += other.r / 7;
 };
 
 Blob.prototype.show = function() {

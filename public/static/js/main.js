@@ -29,7 +29,6 @@ function setup() {
     });
 
     socket.on('ate', function (data) {
-        console.log('ate');
         blob.ate(data);
     });
 }

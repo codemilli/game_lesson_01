@@ -39,6 +39,21 @@ setInterval(heartbeat, 16);
 
 function heartbeat() {
   io.sockets.emit('heartbeat', blobs);
+  if (blobs.length < 50) {  
+    console.log('extra blobs should be recharged');
+
+    var newBlobs = [];
+    for (var i = 0; i < 35; i++) {
+      newBlobs.push({
+        b_id: parseInt(Math.random() * 999999),
+        x: parseInt(Math.random() * 2000) - 1000,
+        y: parseInt(Math.random() * 2000) - 1000,
+        r: 4
+      });
+    }
+
+    blobs = blobs.concat(newBlobs);
+  }
 }
 
 io.sockets.on('connection', function (socket) {
