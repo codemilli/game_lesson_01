@@ -94,8 +94,8 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('disconnect', function () {
-    blobs = blobs.filter(function (b) {
-      return b.id !== socket.id;
+    users = users.filter(function (u) {
+      return u.id !== socket.id;
     });
   })
 });
