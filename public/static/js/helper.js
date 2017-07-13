@@ -28,9 +28,11 @@ Blob.prototype.collide = function (other) {
 Blob.prototype.eats = function (other) {
     var d = p5.Vector.dist(this.pos, other.pos);
 
-    if ((d < this.r + other.r) && eatingBlobList[other.b_id] !== 'eating') {
-        eatingBlobList[other.b_id] = 'eating';
-        return true;
+    if (eatingBlobList[other.b_id] !== 'eating') {
+        if (d < this.r + other.r) {
+            eatingBlobList[other.b_id] = 'eating';
+            return true;
+        }
     }
 
     return false;

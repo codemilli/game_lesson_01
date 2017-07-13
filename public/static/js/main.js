@@ -7,6 +7,9 @@ var zoom = 1;
 var _canvasWidth = 1000;
 var _canvasHeight = 1000;
 
+var latestHeartbeat = 0;
+var latestUpdate = 0;
+
 /**
  * Setup for drawing
  */
@@ -26,7 +29,8 @@ function setup() {
     socket.emit('start', data);
 
     socket.on('heartbeat', function (data) {
-        users = data;
+        users = data.users;
+        latestHeartbeat = data.ts;
     });
 
     socket.on('blobs.changes', function(data) {
@@ -38,6 +42,19 @@ function setup() {
     socket.on('ate', function (data) {
         blob.ate(data);
     });
+
+    setTimeout(function sendUpdate() {
+        socket.emit('update', {
+            user: {
+                x: blob.pos.x,
+                y: blob.pos.y,
+                r: blob.r
+            },
+            ts: Date.now()
+        });
+
+        setTimeout(sendUpdate, 13);
+    }, 16);
 }
 
 /**
@@ -46,8 +63,8 @@ function setup() {
 function draw() {
     background(0);
 
-    var newZoom = 32 / (32 + ((blob.r - 32) * 0.5));
-    zoom = lerp(zoom, newZoom, 0.1);
+    // var newZoom = 32 / (32 + ((blob.r - 32) * 0.5));
+    // zoom = lerp(zoom, newZoom, 0.1);
     translate(width / 2, height / 2);
     //scale(zoom);
     translate(-blob.pos.x, -blob.pos.y);
@@ -81,10 +98,4 @@ function draw() {
     blob.update();
     blob.show();
     blob.constrain();
-
-    socket.emit('update', {
-        x: blob.pos.x,
-        y: blob.pos.y,
-        r: blob.r
-    });
 }

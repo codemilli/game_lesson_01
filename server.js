@@ -39,10 +39,13 @@ app.use(express.static(isDev ? 'public' : 'dist'));
 
 var io = require('socket.io')(server);
 
-setInterval(heartbeat, 16);
+setInterval(heartbeat, 13);
 
 function heartbeat() {
-  io.sockets.emit('heartbeat', users);
+  io.sockets.emit('heartbeat', {
+    users: users,
+    ts: Date.now()
+  });
 }
 
 io.sockets.on('connection', function (socket) {
@@ -58,7 +61,14 @@ io.sockets.on('connection', function (socket) {
   });
   
   socket.on('update', function (data) {
-    var blob = new Blob(socket.id, data.x, data.y, data.r);
+    var user = data.user;
+    var ts = data.ts;
+
+    if (!user){
+      return;
+    }
+
+    var blob = new Blob(socket.id, user.x, user.y, user.r);
     
     users.forEach(function (b, idx) {
       if (socket.id === b.id) {
