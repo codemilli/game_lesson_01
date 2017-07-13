@@ -8,7 +8,7 @@
     "deploy": "npm run clean && npm run uglify  && pm2 start pm2.json",
     "clean": "rm -rf dist && mkdir dist && npm run cp",
     "cp": "cp -R ./public/* ./dist/",
-    "uglify": "uglifyjs ./dist/static/js/helper.js && uglifyjs ./dist/static/js/main.js",
+    "uglify": "uglifyjs ./dist/static/js/helper.js -c -m -o ./dist/static/js/helper.js  && uglifyjs ./dist/static/js/main.js -c -m -o ./dist/static/js/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
