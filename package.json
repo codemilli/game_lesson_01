@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "lite-server",
-    "deploy": "npm run clean && npm run uglify  && pm2 start pm2.json",
+    "deploy": "npm run clean && npm run uglify  && pm2 start pm2.json --env production",
     "clean": "rm -rf dist && mkdir dist && npm run cp",
     "cp": "cp -R ./public/* ./dist/",
     "uglify": "uglifyjs ./dist/static/js/helper.js -c -m -o ./dist/static/js/helper.js  && uglifyjs ./dist/static/js/main.js -c -m -o ./dist/static/js/main.js",
