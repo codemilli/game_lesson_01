@@ -11,6 +11,13 @@ var latestHeartbeat = 0;
 var latestUpdate = 0;
 
 /**
+ * Define things that should be preloaded.
+ */
+function preload() {
+    console.log("preload");
+}
+
+/**
  * Setup for drawing
  */
 function setup() {
