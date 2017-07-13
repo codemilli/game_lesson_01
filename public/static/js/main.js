@@ -14,7 +14,7 @@ function setup() {
     createCanvas(_canvasWidth, _canvasHeight);
     background(0);
 
-    socket = io.connect(location.origin);
+    socket = io.connect(location.origin);   
 
     blob = new Blob(0, 0, 32);
     var data = {
@@ -30,7 +30,9 @@ function setup() {
     });
 
     socket.on('blobs.changes', function(data) {
-        blobs = data;
+        blobs = data.map(function(b) {
+            return new Blob(b.x, b.y, b.r, b.b_id);
+        });
     });
 
     socket.on('ate', function (data) {
@@ -67,7 +69,12 @@ function draw() {
         ellipse(b.x, b.y, b.r * 2, b.r * 2);
 
         if (blob.eats(b)) {
-            socket.emit('eating', b);
+            socket.emit('eating', { 
+                b_id: b.b_id,
+                x: b.pos.x,
+                y: b.pos.y,
+                r: b.r
+            });
         }
     });
 

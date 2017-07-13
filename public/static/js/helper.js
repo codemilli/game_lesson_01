@@ -1,6 +1,7 @@
 var eatingBlobList = {};
 
-function Blob(x, y, r) {
+function Blob(x, y, r, b_id) {
+    this.b_id = b_id;
     this.pos = createVector(x, y);
     this.r = r;
     this.x = x;
@@ -16,8 +17,16 @@ Blob.prototype.update = function() {
     this.pos.add(this.vel);
 };
 
+Blob.prototype.collide = function (other) {
+    var d = p5.Vector.dist(this.pos, other.pos);
+
+    if (d < this.r + other.r) {
+        console.log('collision');
+    }
+};
+
 Blob.prototype.eats = function (other) {
-    var d = p5.Vector.dist(this.pos, (new Blob(other.x, other.y, other.r)).pos);
+    var d = p5.Vector.dist(this.pos, other.pos);
 
     if ((d < this.r + other.r) && eatingBlobList[other.b_id] !== 'eating') {
         eatingBlobList[other.b_id] = 'eating';
